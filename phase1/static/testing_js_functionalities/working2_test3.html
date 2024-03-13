@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+<form id="uploadForm" enctype="multipart/form-data">
+    <label>Patient Id:</label><br><br>
+    <input type="text" id="patient_id" name="patient_id"><br><br><br>
+
+    <label>Upload image of Patient:</label><br><br>
+    <input type="file" name="file" required><br><br>
+
+    <label>Doctor's Comment/Review for the Image :</label><br><br>
+    <textarea id="doctor_comment" name="doctor_comment" rows="4" cols="50" resizable="true"></textarea><br><br><br>
+
+    <input type="submit" value="Upload File">
+</form>
+
+<script>
+$(document).ready(function () {
+    $('#uploadForm').on('submit', function (e) {
+        e.preventDefault(); // Prevent the normal form submission
+        var formData = new FormData(this); // Create a FormData object, passing the form as a parameter
+
+        $.ajax({
+            url: 'http://127.0.0.1:8001/upload/', // Endpoint where the data will be posted
+            type: 'POST',
+            data: formData, // Data to be sent in the request
+            contentType: false, // Necessary for file uploads
+            processData: false, // Necessary for file uploads
+            success: function (response) {
+                alert('Upload successful: ' + response.filename);
+                console.log(response);
+            },
+            error: function () {
+                alert('Upload failed.');
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
