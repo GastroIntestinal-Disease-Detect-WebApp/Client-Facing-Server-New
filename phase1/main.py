@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, Depends, File, UploadFile
+from fastapi import FastAPI, Request, Form, Depends, File, UploadFile,Body
 from typing import Optional
 from starlette.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
@@ -6,8 +6,11 @@ import uvicorn
 from fastapi.staticfiles import StaticFiles
 from datetime import datetime
 import requests
+from phase1.auth.auth import signJWT,decodeJWT,token_response
+from phase1.auth.userModel import UserModel,UserLoginModel
+from phase1.auth.jwt_Bearer import jwtBearer
 # from fastapi.middleware.cors import CORSMiddleware
-
+users = []
 app = FastAPI()
 
 # origins = [
@@ -27,8 +30,27 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+@app.post("/users/signup",tags=["signup"])
+def signup(user:UserModel = Body(default=None)):
+    users.append(user)
+    return signJWT(user.email)
 
-@app.get("/temp_check")
+def Check_Users(data:UserLoginModel):
+    for user in users:
+        if(user.email == data.email and user.password == data.password):
+            return True
+    return False
+
+@app.post("/user/login",tags=["user"])
+def login_users(user:UserLoginModel = Body(default=None)):
+    if(Check_Users(user)):
+        return signJWT(user.email)
+    else:
+        return{
+            "error":"invalid login details!!"
+        }
+
+@app.get("/temp_check",dependencies=[Depends(jwtBearer())])
 def welcome():
     return "Welcome"
 
