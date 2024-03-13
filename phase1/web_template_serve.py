@@ -122,7 +122,7 @@ def get_chat_room(chat_thread_id: str, request: Request, main_doctor_id: str):
     chat = requests.get(api_url).json()
     return templates.TemplateResponse("chat_room.html",{"request":request, "chat_thread_id": chat_thread_id, "main_doctor_id": main_doctor_id})
 
-
+# hello
 
 # @app.get("/admin/view-patient/{id}",response_class=HTMLResponse)
 # def view_patient_by_id(id: str):
