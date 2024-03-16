@@ -177,7 +177,9 @@ function submit_patient_details(){
         "images": [],
         "blood_group": blood_group,
         "gender": gender
-    }
+    };
+
+    console.log(final_patient_object)
 
     $.ajax({
         url: 'http://127.0.0.1:8000/patient',

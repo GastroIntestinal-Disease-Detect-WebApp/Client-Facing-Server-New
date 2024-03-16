@@ -32,6 +32,7 @@ $(document).ready(function() {
                 var patientHtml = `
                     <div class="patient">
                         <h2>${patient.first_name} ${patient.last_name} (Blood Group: ${patient.blood_group})</h2>
+                        <h3>Patient Id: ${patient.id}</h3>
                         <p>Birth Date: ${patient.birth_date}</p>
                         <p>Last Visit Date: ${patient.last_visit_date}</p>
                         <p>Mobile: ${patient.mobile_number}</p>

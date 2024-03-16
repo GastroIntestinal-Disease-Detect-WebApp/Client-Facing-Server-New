@@ -1,6 +1,6 @@
 from fastapi import Request,HTTPException
 from fastapi.security import HTTPAuthorizationCredentials,HTTPBearer
-from phase1.auth.auth import decodeJWT
+from auth.auth import decodeJWT
 
 class jwtBearer(HTTPBearer):
 

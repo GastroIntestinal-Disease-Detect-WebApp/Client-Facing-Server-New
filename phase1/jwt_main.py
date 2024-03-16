@@ -6,13 +6,16 @@ import uvicorn
 from fastapi.staticfiles import StaticFiles
 from datetime import datetime
 import requests
-from phase1.auth.auth import signJWT,decodeJWT,token_response
-from phase1.auth.userModel import UserModel,UserLoginModel
-from phase1.auth.jwt_Bearer import jwtBearer
+from auth.auth import signJWT,decodeJWT,token_response
+from auth.userModel import UserModel,UserLoginModel
+from auth.jwt_Bearer import jwtBearer
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
+
 # from fastapi.middleware.cors import CORSMiddleware
 users = []
 app = FastAPI()
 
+# app.add_middleware(HTTPSRedirectMiddleware)
 # origins = [
 #     "http://127.0.0.1:8001"
 # ]

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Welcome Doctor: </h1>
+    
+    <form action="">
+        <label>Add Doctor Id of Participant 1 :</label><br><br>
+        <input type="text" id="doctor_id1" name="doctor_id1"><br><br><br>
+
+        <label>Add Doctor Id of Participant 2 :</label><br><br>
+        <input type="text" id="doctor_id2" name="doctor_id2"><br><br><br>
+
+        <label>Give a Title To your chat thread :</label><br><br>
+        <input type="text" id="chat_title" name="chat_title"><br><br><br>
+    </form>
+
+    <button onclick="createChatThread()">Next</button>
+
+    <div class="result-container"></div>
+    <script src="http://127.0.0.1:8001/static/doctor_add_chat_thread.js"></script>
+
+</body>
+</html>
