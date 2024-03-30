@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <p id="chat_thread_id">{{chat_thread_id}}</p>
+    <p id="main_doctor_id">{{main_doctor_id}}</p>
+    <div id="messages"></div>
+    <br><br>
+
+    <h3>Enter a new message in the below text box :</h3>
+
+    <textarea name="newMessage" id="newMessage" cols="30" rows="10"></textarea>
+    <br><br>
+    <button onclick="sendMessage()">🛫 Send 🛫</button>
+
+    <script src="http://127.0.0.1:8001/static/chat_room_load.js"></script>
+    <script src="http://127.0.0.1:8001/static/chat_room_send_message.js"></script>
+</body>
+</html>

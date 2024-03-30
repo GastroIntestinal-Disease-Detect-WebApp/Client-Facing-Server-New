@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <h1>Welcome Doctor </h1><br>
+    <h3>Upload the image of patient Operation/Surgery</h3><br>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <label>Patient Id:</label><br><br>
+        <input type="text" id="patient_id" name="patient_id"><br><br><br>
+
+        <label>Upload image of Patient:</label><br><br>
+        <input type="file" name="file" required><br><br>
+
+        <label>Doctor's Comment/Review for the Image :</label><br><br>
+        <textarea id="doctor_comment" name="doctor_comment" rows="4" cols="50" resizable="true"></textarea><br><br><br>
+
+        <input type="submit" value="Upload File">
+    </form><br><br>
+    
+    
+
+    <div class="image_link_container">
+
+    </div>
+
+<script src="http://127.0.0.1:8001/static/doctor_add_patient_image.js"></script>
+
+</body>
+</html>

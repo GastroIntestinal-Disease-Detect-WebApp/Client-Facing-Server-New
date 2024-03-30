@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, Depends, File, UploadFile
+from fastapi import FastAPI, Request, Form, Depends, File, UploadFile, Cookie
 from typing import Optional
 from starlette.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
@@ -6,6 +6,7 @@ import uvicorn
 from fastapi.staticfiles import StaticFiles
 from datetime import datetime
 import requests
+import random
 # from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -40,32 +41,32 @@ def view_all_patients(request:Request):
     return templates.TemplateResponse("view_all_patients.html",{"request":request, "current_time":current_time})
 
 
-# @app.post("/upload_patient_image_to_server")
-# async def upload_patient_image_to_server(pid: str,file: UploadFile = File(...)):
-#     print(pid)
-#     file_path = f"./static/med_images/{file.filename}"
-#     with open(file_path, "wb") as file_object:
-#         content = await file.read()
-#         file_object.write(content)
-        
-#     return "done !!!"
 
 @app.post("/upload/")
-async def upload_patient_image(patient_id: str = Form(...), file: UploadFile = File(...), doctor_comment: Optional[str] = Form(None)):
-    print(patient_id)
+async def upload_patient_image(patient_id: str = Form(...), file: UploadFile = File(...), doctor_comment: Optional[str] = Form(None),access_token: str = Cookie(None)):
+    print(access_token)
+    headers = {"Authorization": f"Bearer {access_token}"}
     
-    # checking if the patient exists:
-    api_url = f"http://127.0.0.1:8000/patient/{patient_id}"
-    patient = requests.get(api_url).json()
+    # generate link for the image (so basically generate the image name)
+    now = datetime.now()
+    current_time = now.strftime("%H%M%S%f")
+    random_image_name = 'Image-' + current_time + str(random.randint(100000, 999999))
+    image_link = "http://127.0.0.1:8001/static/med_images/" + random_image_name
     
-    # if patient exists:
-    if 'first_name' in patient.keys():
-        
-        # generate link for the image (so basically generate the image name)
-        now = datetime.now()
-        current_time = now.strftime("%H%M%S%f")
-        random_image_name = 'Image-' + patient['first_name']+ "-" + patient['last_name'] + "-" + current_time 
-        image_link = "http://127.0.0.1:8001/static/med_images/" + random_image_name
+    image_data_to_insert_into_db = {
+            "image_link": image_link,
+            "doctor_comment": doctor_comment,
+            "response_from_model": "None"
+        }
+    
+    api_url = f"http://127.0.0.1:8000/patient_image_data/{patient_id}"
+    response = requests.post(api_url,json=image_data_to_insert_into_db,headers=headers)
+    
+    print(type(response.status_code))
+
+    print(response)
+    print(response.json())
+    if response.json()["detail"] == "Image added successfully":
         
         # add the image to the filesystem:
         file_path = f"./static/med_images/{random_image_name}"
@@ -73,47 +74,29 @@ async def upload_patient_image(patient_id: str = Form(...), file: UploadFile = F
             content = await file.read()
             file_object.write(content)
         
-        # add the image data (not the image) to mongodb
-        image_data_to_insert_into_db = {
-            "image_link": image_link,
-            "doctor_comment": doctor_comment,
-            "response_from_model": "None"
-        }
-        
-        api_url = f"http://127.0.0.1:8000/patient_image_data/{patient_id}"
-        response = requests.post(api_url,json=image_data_to_insert_into_db)
-        
-        print(response)
-        response = response.json()
-        print(response)
-        
-        # check if the response was success: 
-        if response['status'] == "Image added successfully":
-            # return the json object of success image upload:
-            return {    
+        return {
             "patient_id": patient_id,
             "filename": random_image_name,
-            "doctor_comment": doctor_comment,
-            "content_type": file.content_type,
             "image_link": image_link,
             "status": "success"
-            }
-        
-        elif response['status'] == f"Patient with {patient_id} does not exist":
-            return {    
-            "patient_id": patient_id,
-            "status": "failure"
-            }
-        
-        
-    
-    # if patient does not exist:
-    else:
-        return {
-        "patient_id": patient_id,
-        "status": "patient_dne"
         }
     
+    elif response.json()["detail"] == "You don't have permission to access this patient's profile OR this patient with given ID does not exist":
+        return{
+            "status":"You don't have permission to access this patient's profile OR this patient with given ID does not exist",
+            "patient_id":patient_id
+        }
+        
+    elif response.json()["detail"] == "Update failed":
+        return{
+            "status":"failure"
+        }
+        
+    elif response.status_code == 401:
+        return {
+            "status":"Doctor token is not valid"
+        }
+
 
 @app.get("/chat_room/{chat_thread_id}/{main_doctor_id}",response_class=HTMLResponse)
 def get_chat_room(chat_thread_id: str, request: Request, main_doctor_id: str):
@@ -126,7 +109,11 @@ def get_chat_room(chat_thread_id: str, request: Request, main_doctor_id: str):
 
 # @app.get("/admin/view-patient/{id}",response_class=HTMLResponse)
 # def view_patient_by_id(id: str):
-    
+
+@app.get("/cookie_check")
+def cookie_checker(access_token: str = Cookie(None)):
+    print(access_token)
+    return "hey"
 
 
 if __name__ == "__main__":

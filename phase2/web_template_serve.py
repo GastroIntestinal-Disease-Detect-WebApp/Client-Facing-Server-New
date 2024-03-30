@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, Depends, File, UploadFile
+from fastapi import FastAPI, Request, Form, Depends, File, UploadFile, Cookie
 from typing import Optional
 from starlette.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
@@ -126,7 +126,11 @@ def get_chat_room(chat_thread_id: str, request: Request, main_doctor_id: str):
 
 # @app.get("/admin/view-patient/{id}",response_class=HTMLResponse)
 # def view_patient_by_id(id: str):
-    
+
+@app.get("/cookie_check")
+def cookie_checker(access_token: str = Cookie(None)):
+    print(access_token)
+    return "hey"
 
 
 if __name__ == "__main__":

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome Admin</h1>
+    <br>
+    <h3>Enter the ID of the patient in the below text box and click submit:</h3>
+    <form action="">
+        <input type="text" id="patient_id" name="patient_id"><br>
+    </form>
+    <br>
+    <button onclick="getPatientDataById()">Search</button>
+    <br><br>
+    
+    <div class="patient_detail_container">
+        <!-- data of patient goes here on loading the data from jquery -->
+    </div>
+
+    <script src="http://127.0.0.1:8001/static/admin_view_patient_by_id.js"></script>
+</body>
+</html>
