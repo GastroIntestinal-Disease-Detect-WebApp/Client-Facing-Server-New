@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Chat Thread</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8001/static/doctor_add_chat_thread.css"> <!-- Using the same CSS file for consistent styling -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="container">
+        <h1>Welcome Doctor</h1>
+        <form id="chatThreadForm" class="form-container">
+            <h2>Create a Chat Thread</h2>
+            <div class="input-group">
+                <label for="email_id">Add email Id of the Doctor to communicate:</label>
+                <input type="email" id="email_id" name="doctor_id2">
+            </div>
+            <div class="input-group">
+                <label for="chat_title">Title of the chat thread:</label>
+                <input type="text" id="chat_title" name="chat_title">
+            </div>
+            <button type="button" onclick="createChatThreadStepOne()">Create Thread</button>
+        </form>
+        <div class="result-container"></div>
+    </div>
+
+    <script src="http://127.0.0.1:8001/static/header_loading_helper.js"></script>
+    <script src="http://127.0.0.1:8001/static/doctor_add_chat_thread.js"></script>
+</body>
+</html>

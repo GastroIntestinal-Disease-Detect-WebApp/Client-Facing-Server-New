@@ -1,0 +1,156 @@
+/* Ensure the main container centers everything inside it */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f2ff;
+}
+
+h1 {
+    color: #003366;
+    text-align: center;
+    padding: 20px;
+}
+
+h2, h3 {
+    color: #0056b3;
+    text-align: center;
+}
+
+#patients-container {
+    padding: 20px;
+}
+
+.patient {
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 1000px;
+    border-radius: 8px;
+}
+
+.patient h2, .patient h3 {
+    color: #007bff;
+}
+
+.patient p, .patient li {
+    color: #333;
+}
+
+.patient-images {
+    margin-top: 20px;
+}
+
+.patient-image {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.top-start{
+    text-align: center;
+}
+
+hr {
+    margin-top: 30px;
+    border-color: #007bff;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.patient-section {
+    background-color: #eef4ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.history-block {
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.history-block h4 {
+    margin-top: 0;
+}
+
+.patient-image {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.patient-images h3 {
+    margin-top: 0;
+}
+
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+/* Style the form container specifically, not affecting other elements */
+.form-container {
+    background-color: #f0f9ff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Limit the maximum width */
+}
+
+.initial-inputs, .form_container {
+    margin-top: 20px;
+}
+
+.input-group {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.input-group label {
+    margin-right: 10px;
+}
+
+.input-group input {
+    width: 50%; /* Adjust width as needed */
+    padding: 8px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+
+button {
+    display: block;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px auto;
+}
+
+button:hover {
+    background-color: #0056b3;
+}

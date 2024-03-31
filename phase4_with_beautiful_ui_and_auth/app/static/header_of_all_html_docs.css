@@ -1,0 +1,51 @@
+/* .flex-container{
+    display: flex;
+    gap:1rem;
+    padding: 10px;
+    background-color: lightblue;
+    color: darkcyan;
+    
+}
+
+button{
+    padding: 0;
+    border: none;
+    background: none;;
+}
+ */
+
+
+
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #3498db; 
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.title-button, .small-button {
+    background: none;
+    color: white;
+    border: none;
+    transition: transform 0.1s;
+}
+
+.title-button {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+.small-button {
+    font-size: 14px;
+    padding: 5px 10px;
+}
+
+.title-button:hover, .small-button:hover {
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
+

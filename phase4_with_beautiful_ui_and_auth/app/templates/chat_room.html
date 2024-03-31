@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8001/static/doctor_chat_room.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+    <p id="chat_thread_id" style="display:none;">{{chat_thread_id}}</p>
+    <p id="main_doctor_id" style="display:none;">{{main_doctor_id}}</p>
+    <div class="chat-container">
+        <div id="messages" class="chat-window"></div>
+        <div class="message-input">
+            <textarea id="newMessage" placeholder="Type your message here..."></textarea>
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+    <h3 class="remove-me"></h3>
+    <script src="http://127.0.0.1:8001/static/header_loading_helper.js"></script>
+    <script src="http://127.0.0.1:8001/static/doctor_chat_room_load.js"></script>
+    <script src="http://127.0.0.1:8001/static/doctor_chat_room_send_message.js"></script>
+    <h1 ></h1>
+</body>
+</html>

@@ -1,0 +1,39 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e6f2ff;
+}
+
+.container {
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    color: #003366;
+    margin-bottom: 40px;
+}
+
+.link-container {
+    margin: auto;
+}
+
+.admin-link {
+    display: block; /* Make links stack vertically */
+    margin: 20px auto; /* Centering the links */
+    padding: 20px 40px; /* Increase padding to make buttons bigger */
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px; /* Slightly larger border-radius for bigger buttons */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    width: 60%; /* A wider button */
+    max-width: 400px; /* Maximum width for very large screens */
+    transition: background-color 0.3s, box-shadow 0.2s;
+}
+
+.admin-link:hover {
+    background-color: #0056b3;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}

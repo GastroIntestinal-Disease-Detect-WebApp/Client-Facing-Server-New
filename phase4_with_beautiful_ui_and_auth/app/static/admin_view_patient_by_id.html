@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Patient</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8001/static/admin_view_patient_by_id.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="header"></div>
+<h1>Welcome Admin</h1>
+
+<div class="search-container">
+    <h3>Search for a Patient by ID:</h3>
+    <div class="search-box">
+        <input type="text" id="patient_id" placeholder="Enter patient ID" />
+        <button onclick="getPatientDataById()">Search</button>
+    </div>
+</div>
+
+
+<div id="patient-container">
+    <!-- Single patient data will be inserted here -->
+</div>
+
+<script src="http://127.0.0.1:8001/static/header_loading_helper.js"></script>
+<script src="http://127.0.0.1:8001/static/admin_view_patient_by_id.js"></script>
+</body>
+</html>

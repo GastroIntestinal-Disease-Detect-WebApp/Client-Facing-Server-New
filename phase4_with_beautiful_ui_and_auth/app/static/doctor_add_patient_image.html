@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Patient Image</title>
+    <link rel="stylesheet" href="http://127.0.0.1:8001/static/doctor_add_patient_image.css"> <!-- Assuming the same CSS file as before -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="header"></div>
+
+    <div class="container">
+        <h1>Welcome Doctor</h1>
+        <h2>Upload the image of patient Operation/Surgery</h2>
+        <form id="uploadForm" enctype="multipart/form-data" class="form-container">
+            <div class="input-group">
+                <label for="patient_id">Patient Id:</label>
+                <input type="text" id="patient_id" name="patient_id">
+            </div>
+            <div class="input-group">
+                <label for="file">Upload image of Patient:</label>
+                <input type="file" id="file" name="file" required>
+            </div>
+            <div class="input-group">
+                <label for="doctor_comment">Doctor's Comment/Review for the Image:</label>
+                <textarea id="doctor_comment" name="doctor_comment" rows="4" cols="50"></textarea>
+            </div>
+            <input type="submit" value="Upload File" class="submit-button">
+        </form>
+        <div class="image_link_container"></div>
+    </div>
+
+    <script src="http://127.0.0.1:8001/static/header_loading_helper.js"></script>
+    <script src="http://127.0.0.1:8001/static/doctor_add_patient_image.js"></script>
+</body>
+</html>
