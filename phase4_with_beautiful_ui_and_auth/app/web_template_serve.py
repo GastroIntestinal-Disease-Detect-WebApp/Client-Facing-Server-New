@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request, Form, Depends, File, UploadFile, Cookie
+from fastapi import FastAPI, Request, Form, Depends, File, UploadFile, Cookie, BackgroundTasks
 from typing import Optional
 from starlette.responses import HTMLResponse, FileResponse
 from fastapi.templating import Jinja2Templates
@@ -8,6 +8,7 @@ from datetime import datetime
 import requests
 import random
 from dal.dal import insert_token_into_logged_out_tokens_db
+import httpx
 
 
 app = FastAPI()
@@ -30,7 +31,7 @@ def view_all_patients(request:Request):
 # this route is used to upload patient image.
 # it saves the image to this server and then calls the rest-api server to store it's metadata in mongodb
 @app.post("/upload/")
-async def upload_patient_image(patient_id: str = Form(...), file: UploadFile = File(...), doctor_comment: Optional[str] = Form(None),access_token: str = Cookie(None)):
+async def upload_patient_image(background_tasks: BackgroundTasks, patient_id: str = Form(...), file: UploadFile = File(...), doctor_comment: Optional[str] = Form(None),access_token: str = Cookie(None)):
     print(access_token)
     headers = {"Authorization": f"Bearer {access_token}"}
     
@@ -61,6 +62,13 @@ async def upload_patient_image(patient_id: str = Form(...), file: UploadFile = F
             content = await file.read()
             file_object.write(content)
         
+        api_url = "http://127.0.0.1:8003/perform_prediction"
+        data = {
+            "image_link" : image_link
+        }
+        background_tasks.add_task(call_ml_model,api_url,data)
+        # Request sent, response is not awaited.
+        
         return {
             "patient_id": patient_id,
             "filename": random_image_name,
@@ -83,6 +91,16 @@ async def upload_patient_image(patient_id: str = Form(...), file: UploadFile = F
         return {
             "status":"Doctor token is not valid"
         }
+
+
+async def call_ml_model(api_url: str, data: dict):
+    async with httpx.AsyncClient() as client:
+        try:
+            await client.post(api_url, json=data)
+        except Exception as e:
+            # Optionally handle logging of the error
+            print(f"Failed to send request: {e}")
+            
 
 # this route is used to display the chats of a given doctor for a given chat thread id
 @app.get("/chat_room/{chat_thread_id}/{main_doctor_id}",response_class=HTMLResponse)
@@ -113,6 +131,12 @@ async def logout(access_token: str = Cookie(None)):
             return {"message":"Logout Successful"}
         else:
             return {"message":"Logout Failed"}
+
+
+
+
+
+
 
 if __name__ == "__main__":
     uvicorn.run("web_template_serve:app",reload=True,port=8001)
