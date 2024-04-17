@@ -16,3 +16,4 @@ async def insert_token_into_logged_out_tokens_db(access_token):
     
     client.close()
     return response.acknowledged
+
